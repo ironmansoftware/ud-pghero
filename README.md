@@ -1,6 +1,6 @@
 # UD-PGHero
 
-## PGHero clone built in PowerShell and on [Universal Dashboard](https://ironmansoftware.com/powershell-universal-dashboard/)
+## [PGHero](https://github.com/ankane/pghero) clone built in PowerShell and on [Universal Dashboard](https://ironmansoftware.com/powershell-universal-dashboard/)
 
 # Space
 
