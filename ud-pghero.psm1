@@ -11,7 +11,7 @@ function Start-UDPostgreSQLDashboard {
 
     $Script:LongRunningQuerySec = $LongRunningQuerySec
     $Script:ConnectionString = $ConnectionString
-    $Script:server_version_num = Get-ServerVersionNumber 
+    [int]$Script:server_version_num = Get-ServerVersionNumber 
 
     $Pages = Get-ChildItem (Join-Path $PSScriptRoot "Pages") | ForEach-Object {
         . $_.FullName
@@ -20,12 +20,17 @@ function Start-UDPostgreSQLDashboard {
     Enable-QueryStats
 
     $EndpointInit = New-UDEndpointInitialization -Function @(
+        "Get-ConnectionCount"
+        "Get-ConnectionStates"
+        "Get-ConnectionSources"
         "Get-RelationSize"
         "Get-DatabaseSize"
         "Get-CurrentQueryStats"
         "Test-QueryStatsEnabled"
         "Test-QueryStatsReadable"
-    ) -Variable "ConnectionString"
+        "Get-MaintenanceInfo"
+        "Get-Settings"
+    ) -Variable @("ConnectionString", "server_version_num")
 
     $Dashboard = New-UDDashboard -Title "UD PGHero" -Pages $Pages -EndpointInitialization $EndpointInit
 
