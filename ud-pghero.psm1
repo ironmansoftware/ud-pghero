@@ -32,9 +32,10 @@ function Start-UDPostgreSQLDashboard {
         "Get-Settings"
         "Get-LongRunningQueries"
         "Get-RunningQueries"
+        "Reset-QueryStats"
     ) -Variable @("ConnectionString", "server_version_num", "LongRunningQuerySec")
 
     $Dashboard = New-UDDashboard -Title "UD PGHero" -Pages $Pages -EndpointInitialization $EndpointInit
 
-    Start-UDDashboard -Dashboard $Dashboard -Port $Port
+    Start-UDDashboard -Dashboard $Dashboard -Port $Port -Design
 }

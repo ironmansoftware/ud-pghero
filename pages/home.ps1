@@ -6,4 +6,13 @@ New-UDPage -Name "Overview" -Icon home -DefaultHomePage -Endpoint {
             New-UDHeading -Text "$($LongRunningQueries.Length) long running queries" -Size 4
         }
     }
+
+    if ($LongRunningQueries.Length -gt 0) {
+        foreach($Query in $LongRunningQueries) {
+            New-UDCard -Title "Long Running Queries" -Content {
+                New-UDHeading -Text "Duration: $([TimeSpan]::FromMilliseconds($_.duration_ms))"
+                New-UDHeading -Text $_.query
+           }
+        }
+    } 
 }

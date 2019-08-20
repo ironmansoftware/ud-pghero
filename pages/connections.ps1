@@ -1,14 +1,13 @@
 New-UDPage -Name "Connections" -Icon plug -Endpoint {
-
     New-UDRow -Columns {
         New-UDColumn -SmallSize 12 -LargeSize 6 -LargeOffset 3 -Content {
-            $ConnectionCount = Get-ConnectionCount
             New-UDHeading -Text "Connections"-Size 3
-            New-UDHeading -Text "$ConnectionCount connections"-Size 5
         }
     }
 
     $Sources = (Get-ConnectionSources) | Where-Object { $_.database -isnot [DBNull] }
+
+    Write-UDLog -Message "----------------SOURCES: $Sources-----------------"
 
     $ByDatabase = $Sources | ForEach-Object {
         [PSCustomObject]@{
@@ -48,6 +47,8 @@ New-UDPage -Name "Connections" -Icon plug -Endpoint {
                         Connections = $_.total_connections
                     }
                 } | Out-UDTableData -Property @("TopSource", "Connections")
+
+                
             }
         }
     }
